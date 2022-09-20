@@ -5,7 +5,7 @@ import ExpensesFilter from "./ExpensesFilter";
 import "./Expenses.css";
 
 function Expenses(props) {
-  const [filteredYear, setFilteredYear] = useState("2021");
+  const [filteredYear, setFilteredYear] = useState("2022");
   const filterHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
   };
@@ -18,14 +18,18 @@ function Expenses(props) {
     <div className="expenses">
       <ExpensesFilter selected={filteredYear} onChangeFilter={filterHandler} />
 
-      {filteredExpenses.map((expense) => (
-        <ExpenseItem
-          key={expense.id}
-          title={expense.title}
-          amount={expense.amount}
-          date={expense.date}
-        />
-      ))}
+      {filteredExpenses.length === 0 ? (
+        <h3>No expenses found</h3>
+      ) : (
+        filteredExpenses.map((expense) => (
+          <ExpenseItem
+            key={expense.id}
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+          />
+        ))
+      )}
     </div>
   );
 }
